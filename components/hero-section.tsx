@@ -11,36 +11,40 @@ export function HeroSection() {
   }
 
   return (
-    <section className="relative overflow-hidden border-b border-border layered-bg isolate">
-      {/* Фон: НЕ кликабельный */}
-      <div className="absolute inset-0 pointer-events-none -z-10">
-        {/* Large floating orbs */}
+    <section className="relative overflow-hidden border-b border-border layered-bg">
+      {/* === BACKGROUND (КАК В ExamplesSection) === */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* Left orb */}
         <div
           className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full blur-3xl opacity-40"
           style={{
             background: "radial-gradient(circle, oklch(0.55 0.25 280 / 0.3), transparent 70%)",
-            animation: "float 20s ease-in-out infinite",
+            animation: "float 22s ease-in-out infinite",
           }}
         />
+
+        {/* Right orb */}
         <div
-          className="absolute top-20 -right-40 w-[500px] h-[500px] rounded-full blur-3xl opacity-30"
+          className="absolute top-20 -right-40 w-[500px] h-[500px] rounded-full blur-3xl opacity-35"
+          style={{
+            background: "radial-gradient(circle, oklch(0.58 0.18 290 / 0.28), transparent 70%)",
+            animation: "float 26s ease-in-out infinite reverse",
+          }}
+        />
+
+        {/* Bottom orb */}
+        <div
+          className="absolute -bottom-32 left-1/3 w-[450px] h-[450px] rounded-full blur-3xl opacity-25"
           style={{
             background: "radial-gradient(circle, oklch(0.52 0.22 265 / 0.25), transparent 70%)",
-            animation: "float 25s ease-in-out infinite reverse",
-          }}
-        />
-        <div
-          className="absolute -bottom-20 left-1/3 w-[400px] h-[400px] rounded-full blur-3xl opacity-25"
-          style={{
-            background: "radial-gradient(circle, oklch(0.58 0.18 290 / 0.2), transparent 70%)",
             animation: "float 30s ease-in-out infinite",
           }}
         />
 
-        {/* Mesh gradient overlay (если у тебя есть этот класс — он даст «дорогой» слой) */}
-        <div className="absolute inset-0 mesh-gradient opacity-60" />
+        {/* Mesh */}
+        <div className="absolute inset-0 mesh-gradient opacity-45" />
 
-        {/* Subtle noise texture */}
+        {/* Noise */}
         <div
           className="absolute inset-0 opacity-[0.015]"
           style={{
@@ -49,6 +53,7 @@ export function HeroSection() {
         />
       </div>
 
+      {/* === CONTENT === */}
       <div className="container relative mx-auto px-4 py-16 md:py-24 lg:py-32">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-center">
           {/* Left */}
@@ -63,17 +68,27 @@ export function HeroSection() {
               Быстрые ответы → выше конверсия → больше продаж.
             </p>
 
-            <div className="bg-card border-2 border-primary/20 rounded-xl p-6 max-w-sm mx-auto lg:mx-0 shadow-lg">
-              <div className="text-4xl font-bold text-primary mb-1">3 500 ₽ / месяц</div>
-              <p className="text-sm text-muted-foreground">Доступное решение для малого и среднего бизнеса</p>
+            <div className="bg-card/80 backdrop-blur border-2 border-primary/20 rounded-xl p-6 max-w-sm mx-auto lg:mx-0 shadow-lg">
+              <div className="text-4xl font-bold text-primary mb-1">
+                3 500 ₽ / месяц
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Доступное решение для малого и среднего бизнеса
+              </p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
-              <Button size="lg" className="text-base font-semibold border-2 border-black" onClick={scrollToLead}>
+              <Button
+                type="button"
+                size="lg"
+                className="text-base font-semibold border-2 border-black"
+                onClick={scrollToLead}
+              >
                 Попробовать
               </Button>
 
               <Button
+                type="button"
                 size="lg"
                 variant="outline"
                 className="text-base font-semibold bg-transparent border-2 border-black"
