@@ -4,9 +4,19 @@ import { Button } from "@/components/ui/button"
 import { ChatWidget } from "@/components/chat-widget"
 
 export function HeroSection() {
+  const scrollToLead = () => {
+    const target = document.getElementById("lead")
+    if (!target) return
+
+    target.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    })
+  }
+
   return (
     <section className="relative overflow-hidden border-b border-border layered-bg">
-      {/* === BACKGROUND (КАК В ExamplesSection) === */}
+      {/* === ФОН (КАК В ДРУГИХ БЛОКАХ) === */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div
           className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full blur-3xl opacity-40"
@@ -15,6 +25,7 @@ export function HeroSection() {
             animation: "float 22s ease-in-out infinite",
           }}
         />
+
         <div
           className="absolute top-20 -right-40 w-[500px] h-[500px] rounded-full blur-3xl opacity-35"
           style={{
@@ -22,6 +33,7 @@ export function HeroSection() {
             animation: "float 26s ease-in-out infinite reverse",
           }}
         />
+
         <div
           className="absolute -bottom-32 left-1/3 w-[450px] h-[450px] rounded-full blur-3xl opacity-25"
           style={{
@@ -40,9 +52,10 @@ export function HeroSection() {
         />
       </div>
 
-      {/* === CONTENT === */}
-      <div className="container relative mx-auto px-4 py-16 md:py-24 lg:py-32">
+      {/* === КОНТЕНТ (КЛИКАБЕЛЬНЫЙ) === */}
+      <div className="container relative z-10 mx-auto px-4 py-16 md:py-24 lg:py-32">
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-center">
+          {/* LEFT */}
           <div className="flex flex-col gap-6 text-center lg:text-left">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-balance">
               Умный AI-чат для вашего сайта
@@ -55,27 +68,38 @@ export function HeroSection() {
             </p>
 
             <div className="bg-card/80 backdrop-blur border-2 border-primary/20 rounded-xl p-6 max-w-sm mx-auto lg:mx-0 shadow-lg">
-              <div className="text-4xl font-bold text-primary mb-1">3 500 ₽ / месяц</div>
-              <p className="text-sm text-muted-foreground">Доступное решение для малого и среднего бизнеса</p>
+              <div className="text-4xl font-bold text-primary mb-1">
+                3 500 ₽ / месяц
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Доступное решение для малого и среднего бизнеса
+              </p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
-              <Button asChild size="lg" className="text-base font-semibold border-2 border-black">
-                <a href="#lead">Попробовать</a>
+              <Button
+                type="button"
+                size="lg"
+                className="text-base font-semibold border-2 border-black"
+                onClick={scrollToLead}
+              >
+                Попробовать
               </Button>
 
               <Button
-                asChild
+                type="button"
                 size="lg"
                 variant="outline"
                 className="text-base font-semibold bg-transparent border-2 border-black"
+                onClick={scrollToLead}
               >
-                <a href="#lead">Получить демо</a>
+                Получить демо
               </Button>
             </div>
           </div>
 
-          <div className="relative flex justify-center lg:justify-end">
+          {/* RIGHT */}
+          <div className="relative z-10 flex justify-center lg:justify-end">
             <ChatWidget />
           </div>
         </div>
