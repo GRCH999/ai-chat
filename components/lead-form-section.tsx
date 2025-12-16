@@ -1,8 +1,5 @@
 "use client"
 
-import type React from "react"
-
-import { useState } from "react"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -11,20 +8,6 @@ import { Textarea } from "@/components/ui/textarea"
 import { Sparkles } from "lucide-react"
 
 export function LeadFormSection() {
-  const [formData, setFormData] = useState({
-    name: "",
-    phone: "",
-    comment: "",
-  })
-  const [isSubmitted, setIsSubmitted] = useState(false)
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log("Form submitted:", formData)
-    setIsSubmitted(true)
-    setTimeout(() => setIsSubmitted(false), 3000)
-  }
-
   return (
     <section id="lead" className="py-16 md:py-24 relative overflow-hidden layered-bg">
       {/* Multiple layered gradient backgrounds for depth */}
@@ -72,60 +55,58 @@ export function LeadFormSection() {
           </div>
 
           <Card className="p-8 shadow-xl">
-            {isSubmitted ? (
-              <div className="text-center py-8">
-                <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                  <Sparkles className="h-8 w-8 text-primary" />
-                </div>
-                <h3 className="text-2xl font-semibold mb-2">Спасибо!</h3>
-                <p className="text-muted-foreground">Ответим в течение 1 рабочего дня</p>
+            <form
+              action="https://formspree.io/f/mwpgdwvd"
+              method="POST"
+              className="space-y-6"
+            >
+              {/* Редирект после успешной отправки */}
+              <input type="hidden" name="_next" value="/?sent=1#lead" />
+              {/* Антиспам (скрытое поле; человек его не трогает) */}
+              <input type="text" name="_gotcha" style={{ display: "none" }} />
+              {/* Метка откуда заявка */}
+              <input type="hidden" name="source" value="Лендинг: демо-форма" />
+
+              <div className="space-y-2">
+                <Label htmlFor="name">Имя *</Label>
+                <Input
+                  id="name"
+                  name="name"
+                  type="text"
+                  placeholder="Ваше имя"
+                  required
+                />
               </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="space-y-2">
-                  <Label htmlFor="name">Имя *</Label>
-                  <Input
-                    id="name"
-                    type="text"
-                    placeholder="Ваше имя"
-                    required
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  />
-                </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="phone">Телефон *</Label>
-                  <Input
-                    id="phone"
-                    type="tel"
-                    placeholder="+7 (___) ___-__-__"
-                    required
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  />
-                </div>
+              <div className="space-y-2">
+                <Label htmlFor="phone">Телефон *</Label>
+                <Input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  placeholder="+7 (___) ___-__-__"
+                  required
+                />
+              </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="comment">Комментарий (необязательно)</Label>
-                  <Textarea
-                    id="comment"
-                    placeholder="Расскажите о вашем бизнесе"
-                    rows={4}
-                    value={formData.comment}
-                    onChange={(e) => setFormData({ ...formData, comment: e.target.value })}
-                  />
-                </div>
+              <div className="space-y-2">
+                <Label htmlFor="comment">Комментарий (необязательно)</Label>
+                <Textarea
+                  id="comment"
+                  name="comment"
+                  placeholder="Расскажите о вашем бизнесе"
+                  rows={4}
+                />
+              </div>
 
-                <Button type="submit" size="lg" className="w-full text-base font-semibold border-2 border-black">
-                  Получить демо
-                </Button>
+              <Button type="submit" size="lg" className="w-full text-base font-semibold border-2 border-black">
+                Получить демо
+              </Button>
 
-                <p className="text-sm text-muted-foreground text-center">
-                  Стоимость сервиса — 3 500 ₽ / месяц. Детали обсудим при демонстрации.
-                </p>
-              </form>
-            )}
+              <p className="text-sm text-muted-foreground text-center">
+                Стоимость сервиса — 3 500 ₽ / месяц. Детали обсудим при демонстрации.
+              </p>
+            </form>
           </Card>
         </div>
       </div>
